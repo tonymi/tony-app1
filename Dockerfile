@@ -1,20 +1,17 @@
-# Use an official Python runtime as a base image
-FROM python:2.7-slim
+FROM node:20.14-alpine3.19 as builder
 
-# Set the working directory to /app
-WORKDIR /app
+WORKDIR '/app'
 
-# Copy the current directory contents into the container at /app
-ADD . /app
+COPY ./package.json .
 
-# Install any needed packages specified in requirements.txt
-RUN pip install -r requirements.txt
+RUN npm install
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+COPY ./ ./
 
-# Define environment variable
-ENV NAME "Tony. This is a new World!"
+RUN npm run build
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+
+FROM nginx
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
