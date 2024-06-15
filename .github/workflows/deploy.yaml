@@ -21,7 +21,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: react-appre
+          application_name: react-app
           environment_name: React-app-env
           existing_bucket_name: elasticbeanstalk-us-east-2-785973395514
           region: us-east-2
